@@ -1,111 +1,70 @@
-export class Car{
-    id: number;
-    nombre: string;
-    color: String;
-    anio: number;
-    private _combustible: number;
-
-    constructor(id: number = 1, nombre:string, color: string, anio: number, combustible: number){
+"use strict";
+exports.__esModule = true;
+exports.RegistroAutomotor = exports.Car = void 0;
+var Car = /** @class */ (function () {
+    function Car(id, nombre, color, anio, combustible) {
         this.id = id;
         this.nombre = nombre;
         this.color = color;
         this.anio = anio;
-        this._combustible = combustible;
-
+        this.combustible = combustible;
     }
-    arrancar(): void {
-        console.log('inicia su recorrido')
-      
+    Car.prototype.consultarId = function () {
+        return this.id;
+    };
+    Car.prototype.arrancar = function () {
+        console.log('inicia su recorrido');
+    };
+    Car.prototype.acelerar = function () {
+    };
+    Car.prototype.frenar = function () {
+    };
+    Car.prototype.consultarCombustible = function () {
+        return this.combustible;
+    };
+    return Car;
+}());
+exports.Car = Car;
+var RegistroAutomotor = /** @class */ (function () {
+    function RegistroAutomotor(listado) {
+        if (listado === void 0) { listado = []; }
+        this.listado = listado;
     }
-     acelerar(): void {
-        this._combustible --;
-    }
-    frenar(): void {
-         clearInterval
-    }
-
-
-    get combustible() : number {
-         return this._combustible
-    }
-}
-
-export class RegistroAutomotor{
-
-    private listado : Car[];
-
-    constructor(listado: Car[] = []){
-        this.listado= listado
-    }
-
-    consultarListado(){
-        return this.listado
-    }
-
-    consultarAutomotor(id: number): Car | undefined{
-        return this.listado.find(auto => auto.id === id)
-    }
-    borrarAutomotor(id: number): Car[] {
-        return this.listado.filter(auto => auto.id !== id)
-    }
-    actualizarAutomotor(car:Car) : void{
-        const indexAuto = this.listado.findIndex(auto => (auto.id === car.id))
-        this.listado[indexAuto] = car
-    }
-    darDeAltaAutomotor(car : Car){
-        return this.listado.push(car)
-
-    }
-}
-
-export class Matriz {
-
-    get ConsultarDatos() : Car[] {
-        return listado
-    }
-}
-
-
-export class Toyota extends Car {
-    CuatroXCuatro(){
-        return 'el vehiculo es 4x4'
-    }
-}
-
-export class Fiat extends Car {
-    
-}
-
-
-//Instancia del Registro Automotor
-const registro = new RegistroAutomotor()
-
+    RegistroAutomotor.prototype.consultarListado = function () {
+        return this.listado;
+    };
+    RegistroAutomotor.prototype.consultarAutomotor = function (id) {
+        return this.listado.find(function (auto) { return auto.consultarId() === id; });
+    };
+    RegistroAutomotor.prototype.borrarAutomotor = function (id) {
+        this.listado.filter(function (auto) { return auto.consultarId() !== id; });
+    };
+    RegistroAutomotor.prototype.actualizarAutomotor = function (car) {
+        var indexAuto = this.listado.findIndex(function (auto) { return (auto.consultarId() === car.consultarId()); });
+        this.listado[indexAuto] = car;
+    };
+    RegistroAutomotor.prototype.darDeAltaAutomotor = function (car) {
+        this.listado.push(car);
+    };
+    return RegistroAutomotor;
+}());
+exports.RegistroAutomotor = RegistroAutomotor;
 //Instanciamos Autos 
-const corollaRojo =new Toyota(0,'Corolla', 'Rojo', 2020, 20)
-const etiosGris =new Toyota(1,'Etios', 'Gris', 2018, 20)
-
+var corollaRojo = new Car(0, 'Corolla', 'Rojo', 2020, 20);
+var etiosGris = new Car(1, 'Etios', 'Gris', 2018, 20);
+//Instancia del Registro Automotor
+var registro = new RegistroAutomotor([]);
 //Registrar los autos
-registro.darDeAltaAutomotor(corollaRojo)
-registro.darDeAltaAutomotor(etiosGris)
-
+registro.darDeAltaAutomotor(corollaRojo);
+registro.darDeAltaAutomotor(etiosGris);
 // Consultar los autos
-console.log(registro.consultarListado())
-
-const hiluxNegra = new Toyota(1,"Hilux", "Negro", 2018, 20)
-// // //Actualizar auto
-registro.actualizarAutomotor(hiluxNegra)
-
-// //volver a consultar autos para ver el listado actualizado
-const listado = registro.consultarListado()
- console.log(registro.consultarListado())
-
-// //consultar Auto especifico
-console.log(registro.consultarAutomotor(hiluxNegra.id))
-// //borrar Auto
-console.log(registro.borrarAutomotor(hiluxNegra.id))
-
-//Instancia de matriz
-const matriz = new Matriz();
-
-//Consulta del listado con el metodo get
-console.log(matriz.ConsultarDatos)
+console.log(registro.consultarListado());
+var hiluxNegra = new Car(1, "Hilux", "Negro", 2018, 20);
+//Actualizar auto
+registro.actualizarAutomotor(hiluxNegra);
+//volver a consultar autos para ver el listado actualizado
+console.log(registro.consultarListado());
+//consultar Auto especifico
+console.log(registro.consultarAutomotor(hiluxNegra.consultarId()));
+//borrar Auto
+console.log(registro.borrarAutomotor(hiluxNegra.consultarId()));
